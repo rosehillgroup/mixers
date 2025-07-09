@@ -880,11 +880,11 @@
                         
                         const points = poissonDiskSampling(canvasWidth, canvasHeight, minDistance, 30, rng);
                         
-                        // Add some size variation to points
+                        // Add enhanced size variation to points
                         const pointsWithSize = points.map(([x, y]) => ({
                             x,
                             y,
-                            size: 0.8 + rng() * 0.4 // 80% to 120% size variation
+                            size: 0.6 + rng() * 0.8 // 60% to 140% size variation
                         }));
                         
                         // Create Voronoi diagram
@@ -999,10 +999,14 @@
                         centerX /= polygon.length;
                         centerY /= polygon.length;
 
-                        // Create gradient for subtle 3D effect
+                        // Create gradient for subtle 3D effect with size variation
+                        const granuleSize = voronoiData.points[i].size;
+                        const baseRadius = Math.max(Math.abs(centerX - polygon[0][0]), Math.abs(centerY - polygon[0][1]));
+                        const scaledRadius = baseRadius * granuleSize;
+                        
                         const gradient = ctx.createRadialGradient(
                             centerX - 1, centerY - 1, 0,
-                            centerX, centerY, Math.max(Math.abs(centerX - polygon[0][0]), Math.abs(centerY - polygon[0][1]))
+                            centerX, centerY, scaledRadius
                         );
                         
                         // Parse hex colour
