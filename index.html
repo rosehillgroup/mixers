@@ -845,7 +845,7 @@
                 const [redoStack, setRedoStack] = useState([]);
                 const [voronoiData, setVoronoiData] = useState(null);
                 const [tooltip, setTooltip] = useState(null);
-                const [zoomLevel, setZoomLevel] = useState(1);
+                const [zoomLevel, setZoomLevel] = useState(2);
                 const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
                 const [isPanning, setIsPanning] = useState(false);
                 const [lastMousePos, setLastMousePos] = useState({ x: 0, y: 0 });
@@ -1321,7 +1321,7 @@
                     setRedoStack([]);
                     setParts(new Map());
                     // Reset zoom and pan
-                    setZoomLevel(1);
+                    setZoomLevel(2);
                     setPanOffset({ x: 0, y: 0 });
                 }, [parts]);
 
@@ -1717,7 +1717,7 @@
                                     React.createElement('button', {
                                         className: 'zoom-btn',
                                         onClick: resetCanvas,
-                                        disabled: parts.size === 0 && zoomLevel === 1 && panOffset.x === 0 && panOffset.y === 0,
+                                        disabled: parts.size === 0 && zoomLevel === 2 && panOffset.x === 0 && panOffset.y === 0,
                                         title: 'Reset Canvas',
                                         'aria-label': 'Reset Canvas',
                                         style: { fontSize: '14px' }
