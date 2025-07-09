@@ -999,14 +999,28 @@
                         centerX /= polygon.length;
                         centerY /= polygon.length;
 
-                        // Create gradient for subtle 3D effect with size variation
+                        // Create gradient for subtle 3D effect with size variation and directional lighting
                         const granuleSize = voronoiData.points[i].size;
-                        const baseRadius = Math.max(Math.abs(centerX - polygon[0][0]), Math.abs(centerY - polygon[0][1]));
-                        const scaledRadius = baseRadius * granuleSize;
                         
-                        const gradient = ctx.createRadialGradient(
-                            centerX - 1, centerY - 1, 0,
-                            centerX, centerY, scaledRadius
+                        // Calculate polygon bounds for directional lighting
+                        let minX = polygon[0][0], maxX = polygon[0][0];
+                        let minY = polygon[0][1], maxY = polygon[0][1];
+                        for (let j = 1; j < polygon.length; j++) {
+                            minX = Math.min(minX, polygon[j][0]);
+                            maxX = Math.max(maxX, polygon[j][0]);
+                            minY = Math.min(minY, polygon[j][1]);
+                            maxY = Math.max(maxY, polygon[j][1]);
+                        }
+                        
+                        const polygonWidth = (maxX - minX) * granuleSize;
+                        const polygonHeight = (maxY - minY) * granuleSize;
+                        
+                        // Create linear gradient for directional lighting (top-left to bottom-right)
+                        const gradient = ctx.createLinearGradient(
+                            centerX - polygonWidth * 0.3,   // Light source from top-left
+                            centerY - polygonHeight * 0.3,
+                            centerX + polygonWidth * 0.3,   // Shadow toward bottom-right
+                            centerY + polygonHeight * 0.3
                         );
                         
                         // Parse hex colour
