@@ -647,9 +647,27 @@
 
         @media (max-width: 768px) {
             .canvas-wrapper {
-                height: 50vw;
+                height: 70vw;
+                max-height: 400px;
+                min-height: 300px;
+            }
+        }
+
+        /* iPhone and small mobile devices in portrait */
+        @media (max-width: 480px) {
+            .canvas-wrapper {
+                height: 75vw;
                 max-height: 350px;
-                min-height: 250px;
+                min-height: 280px;
+            }
+        }
+
+        /* Very small devices */
+        @media (max-width: 375px) {
+            .canvas-wrapper {
+                height: 80vw;
+                max-height: 320px;
+                min-height: 260px;
             }
             
             .colour-swatch {
